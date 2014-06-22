@@ -22,6 +22,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import com.google.android.maps.MapActivity;
+
 import com.amk2.musicrunner.R;
 import com.amk2.musicrunner.RunningTabContentFactory;
 import com.amk2.musicrunner.finish.FinishRunningActivity;
@@ -33,7 +35,7 @@ import java.util.TimerTask;
 /**
  * Created by ktlee on 5/10/14.
  */
-public class RunningActivity extends Activity implements TabHost.OnTabChangeListener,
+public class RunningActivity extends MapActivity implements TabHost.OnTabChangeListener,
         ViewPager.OnPageChangeListener, View.OnClickListener {
 
     public static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -397,4 +399,8 @@ public class RunningActivity extends Activity implements TabHost.OnTabChangeList
         }
     }
 
+    @Override
+    protected boolean isRouteDisplayed() {
+        return false;
+    }
 }
