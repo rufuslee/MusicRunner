@@ -105,9 +105,9 @@ public class MapFragmentRun extends Fragment implements
     @Override
     public void onStop() {
 
-        stopUpdates(this.getView());
+        //stopUpdates(this.getView());
         // After disconnect() is called, the client is considered "dead".
-        mLocationClient.disconnect();
+        //mLocationClient.disconnect();
         super.onStop();
     }
 
@@ -116,7 +116,9 @@ public class MapFragmentRun extends Fragment implements
         super.onStart();
 
         // Connect the client.
-        mLocationClient.connect();
+        if(!mLocationClient.isConnected()) {
+            mLocationClient.connect();
+        }
         mMap.setMyLocationEnabled(true);
     }
 
