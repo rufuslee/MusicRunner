@@ -73,7 +73,6 @@ public class WeatherFragment extends Fragment {
         mWindTextView            = (TextView) thisView.findViewById(R.id.weather_condition_wind);
 
         mWeatherIconImageView    = (ImageView) thisView.findViewById(R.id.weather_condition_icon);
-
         mHourlyForecastContainer = (LinearLayout) thisView.findViewById(R.id.weather_condition_hourly);
         m5DaysForecastContainer  = (LinearLayout) thisView.findViewById(R.id.weather_condition_5days);
 
@@ -98,6 +97,7 @@ public class WeatherFragment extends Fragment {
         InputStream inputStream = RestfulUtility.restfulGetRequest(Constant.WEATHER_CONDITION_API_URL + "?city=taipei&country=tw");
         String weatherJSONString = RestfulUtility.getStringFromInputStream(inputStream);
         try {
+            int iconId;
             JSONObject weatherJSONObject = new JSONObject(weatherJSONString);
             mTemperatureTextView.setText(weatherJSONObject.getString("feelslike_c") + " c");
             mWeatherIconDescTextView.setText(weatherJSONObject.getString("condition"));
@@ -105,14 +105,15 @@ public class WeatherFragment extends Fragment {
             mUVIndexTextView.setText(weatherJSONObject.getString("UV"));
             mWindTextView.setText(weatherJSONObject.getString("wind_kph") + " mph");
 
-            URL url = new URL(weatherJSONObject.getString("icon_url"));
-            Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            mWeatherIconImageView.setImageBitmap(bitmap);
+            if (weatherJSONObject.getString("icon_url").matches(".*nt_.*")) {
+                iconId = getResources().getIdentifier("nt_" + weatherJSONObject.getString("icon"), "drawable", getActivity().getPackageName());
+            } else {
+                iconId = getResources().getIdentifier(weatherJSONObject.getString("icon"), "drawable", getActivity().getPackageName());
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(getResources(), iconId);
+            mWeatherIconImageView.setImageBitmap(Bitmap.createScaledBitmap(icon, 100, 100, false));
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -139,13 +140,14 @@ public class WeatherFragment extends Fragment {
 
         try {
             int hour = Integer.parseInt(weatherJSONObject.getString("time"));
+            int iconId;
+
             String ampm = weatherJSONObject.getString("ampm");
             if (ampm == "PM") {
                 hour -= 12;
             }
             time.setText(hour + " " + ampm);
 
-            int iconId;
             if (weatherJSONObject.getString("icon_url").matches(".*nt_.*")) {
                 iconId = getResources().getIdentifier("nt_" + weatherJSONObject.getString("icon"), "drawable", getActivity().getPackageName());
             } else {
