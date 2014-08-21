@@ -130,7 +130,7 @@ public class MyFragment extends Fragment implements TabHost.OnTabChangeListener,
     public void onStart() {
         super.onStart();
         myMusicContainer.removeAllViews();
-        setValueOfProgressBar();
+        //setValueOfProgressBar();
     }
 
     private void initTabs(){

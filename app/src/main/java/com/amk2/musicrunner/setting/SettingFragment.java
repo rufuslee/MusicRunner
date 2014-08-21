@@ -56,7 +56,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         HttpResponse response = RestfulUtility.restfulPostRequest(RestfulUtility.GET_SETTING_INFO, pairs);
         String settingString = RestfulUtility.getStatusCode(response);
         JSONObject settingJson = null;
-        try{
+        /*try{
             if(settingString != null)
                 settingJson = new JSONObject(settingString);
 
@@ -70,7 +70,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
             heightET.setText(settingJson.getString("height"));
         } catch (JSONException je){
 
-        }
+        }*/
 	}
 
     public void updateSettings(View view){

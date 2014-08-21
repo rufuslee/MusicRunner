@@ -105,20 +105,20 @@ public class WeatherFragment extends Fragment{
     public void onActivityCreated (Bundle saveInstanceState) {
         super.onActivityCreated(saveInstanceState);
         View thisView = getView();
-        hourlyWeatherForecast = (LinearLayout) thisView.findViewById(R.id.hourly_weather_forecast);
+        /*hourlyWeatherForecast = (LinearLayout) thisView.findViewById(R.id.hourly_weather_forecast);
         weeklyWeatherForecast = (LinearLayout) thisView.findViewById(R.id.weekly_weather_forecast);
         inflater = (LayoutInflater) thisView.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         weatherTemp    = (TextView) thisView.findViewById(R.id.weather_temp);
-        weatherSummary = (TextView) thisView.findViewById(R.id.weather_summary);
-
+        weatherSummary = (TextView) thisView.findViewById(R.id.weather_summary);*/
+/*
         try {
             updateWeatherSummary();
             updateWeeklyForecast();
             update24HoursForecast();
         } catch (CursorIndexOutOfBoundsException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -228,7 +228,7 @@ public class WeatherFragment extends Fragment{
         View hourly = inflater.inflate(R.layout.hourly_template, null);
         TextView time = (TextView) hourly.findViewById(R.id.time);
         time.setText(t24HoursJSONArray.getString("time") + ":00");
-        ImageView weatherGraph = (ImageView) hourly.findViewById(R.id.weather_graph_24hrs);
+        ImageView weatherGraph = (ImageView) hourly.findViewById(R.id.weather_hourly_icon);
 
         Log.d("daz in weather condindex=", t24HoursJSONArray.getString("condIndex").toString());
         try {

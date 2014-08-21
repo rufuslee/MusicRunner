@@ -4,12 +4,14 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.amk2.musicrunner.Constant;
+import com.amk2.musicrunner.start.WeatherModel;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,8 +21,13 @@ import org.apache.http.params.HttpParams;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -75,5 +82,57 @@ public class RestfulUtility {
             //ignore this exception for now
         }
         return response;
+    }
+
+    public static InputStream restfulGetRequest (String urlString) {
+        InputStream inputStream;
+
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(3000);
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+
+            conn.connect();
+            int responseCode = conn.getResponseCode();
+            Log.d("Restful api", "Response Code is : " + responseCode);
+            inputStream = conn.getInputStream();
+            return inputStream;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getStringFromInputStream(InputStream in) {
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+            String s;
+            br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            while ( (s = br.readLine()) != null) {
+                sb.append(s);
+            }
+        } catch (UnsupportedEncodingException e) {
+            Log.d("Error","Unsupport UTF-8 data type");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sb.toString();
     }
 }

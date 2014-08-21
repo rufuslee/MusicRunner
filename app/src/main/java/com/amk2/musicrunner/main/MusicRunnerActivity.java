@@ -35,8 +35,8 @@ public class MusicRunnerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_runner);
         initialize();
-        initializeSyncJobs();
-        initializeLocation();
+        //initializeSyncJobs();
+        //initializeLocation();
         mUIController.onActivityCreate(savedInstanceState);
         goToRunningPage();
     }

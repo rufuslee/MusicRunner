@@ -56,13 +56,13 @@ public class StartFragment extends Fragment implements View.OnClickListener {
     private TextView city;
     private LinearLayout startTemperatureContainer;
 
-    private StartTabFragmentListener mStartTabFragmentListener;
+    //private StartTabFragmentListener mStartTabFragmentListener;
 
     private ContentResolver mContentResolver;
 
-    public void setStartTabFragmentListener(StartTabFragmentListener listener) {
-    	mStartTabFragmentListener = listener;
-    }
+    //public void setStartTabFragmentListener(StartTabFragmentListener listener) {
+    	//mStartTabFragmentListener = listener;
+    //}
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -91,12 +91,12 @@ public class StartFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 // Switch to WeatherFragment
-            	mStartTabFragmentListener.onSwitchBetweenStartAndWeatherFragment();
+            	//mStartTabFragmentListener.onSwitchBetweenStartAndWeatherFragment();
             }
         });
         mGoRunningButton.setOnClickListener(this);
 
-        checkWeatherInfo();
+        //checkWeatherInfo();
     }
 
     @Override

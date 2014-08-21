@@ -4,7 +4,7 @@ package com.amk2.musicrunner;
  * Created by ktlee on 5/25/14.
  */
 public class Constant {
-    public static final boolean isServerOn = true;
+    public static final boolean isServerOn = false;
 
     //main activity
     public static final long MILLISECONDS_PER_SECOND = 1L;
@@ -31,14 +31,20 @@ public class Constant {
     public static final String DB_KEY_YOUBIKE = "com.amk2.musicrunner.youbike";
 
     // Server API
-    public static final String HOST = "http://ec2-54-187-71-254.us-west-2.compute.amazonaws.com";
+    public static final String HOST = "http://ec2-54-187-100-217.us-west-2.compute.amazonaws.com";
     public static final String PORT = ":8080";
+    public static final String WEATHER_CONDITION_API_URL = HOST + PORT + "/getWeatherConditions";
+    public static final String WEATHER_HOURLY_API_URL    = HOST + PORT + "/getWeatherHourly";
+    public static final String WEATHER_5DAYS_API_URL     = HOST + PORT + "/getWeatherForecast5Day";
+
+    //----------DEPRECATED-------------
     public static final String baseWeatherUrlString = HOST + PORT + "/weatherDailyJSON";//TODO need to append city query behind
     public static final String baseWeatherWeekUrlString = HOST + PORT + "/weatherWeeklyJSON";//TODO need to append city query behind
     public static final String baseWeather24HoursUrlString = HOST + PORT + "/weather24HoursJSON";//TODO need to append city query behind
     public static final String baseYoubikeUrlString = HOST + PORT + "/youBikeJSON";//TODO need to append city query behind
     public static final String storeRunningEventUrlString = HOST + PORT + "store?type=event";//TODO need to append city query behind
     public static final String cityCodeQuery = "cityCode=";
+    //---------------------------------
 
     //AWS Setting
     public static final String AWS_HOST = "http://ec2-54-187-71-254.us-west-2.compute.amazonaws.com:8080";
